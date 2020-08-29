@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float hMag;
 
+    private bool gloryKilling = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,26 +26,57 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    //private bool flag = true;
     void Update()
     {
-        horizontalRaw = Input.GetAxisRaw("Horizontal");//0 or 1
+        gloryKilling = GloryKill.GetGloryStatus();
+
+
+        horizontalRaw = Input.GetAxisRaw("Horizontal");//0 or 1 or -1
         horizontal = Input.GetAxis("Horizontal");
 
 
-        animator.SetFloat("Horizontal", Math.Abs(horizontal));
+
+        if (!gloryKilling)
+        {
+            //flag = true;
+            animator.SetFloat("Horizontal", Math.Abs(horizontal));
+        }
+        /*else
+        {
+            if (flag)
+            {
+                flag = false;
+                animator.SetFloat("Horizontal", 0);
+            }
+            
+        }*/
+            
 
     }
 
     private void FixedUpdate()
     {
-        Move(horizontalRaw);
+        if (!gloryKilling)
+            Move(horizontalRaw);
+        else
+            body.velocity = Vector2.zero;
 
 
     }
 
     private void Move(float horzRaw)
     {
-        
+
+        switch (horzRaw)
+        {
+            case 1:
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case -1:
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                break;
+        }
 
         body.AddForce(new Vector2(horzRaw * hMag, 0));
         body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
