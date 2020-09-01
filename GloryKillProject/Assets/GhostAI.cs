@@ -7,33 +7,40 @@ public class GhostAI : MonoBehaviour
     [SerializeField]
     private Animator animator;
     private bool flag = true;
+    [SerializeField]
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        Debug.DrawLine(transform.position, (player.transform.position - transform.position).normalized);
     }
 
-    private IEnumerator OnTriggerEnter2D(Collider2D collision)
+    /*private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && flag)
         {
             flag = false;
-            animator.SetTrigger("MakeAngry");
-            yield return new WaitForSeconds(2);
-            animator.ResetTrigger("MakeAngry");
 
-            animator.SetTrigger("Stagger");
-            yield return new WaitForSeconds(2);
-            animator.ResetTrigger("Stagger");
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized);
+            //Debug.DrawLine(transform.position, (player.transform.position-transform.position).normalized);
+
+            if (hit.collider.CompareTag("Player"))
+            {
+                animator.SetTrigger("MakeAngry");
+                yield return new WaitForSeconds(2);
+
+                animator.SetBool("Stagger", true);
+                yield return new WaitForSeconds(2);
+                
+            }
             flag = true;//needs change
+
         }
-    }
+    }*/
 
 }
