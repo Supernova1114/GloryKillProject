@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalRaw;
     private float horizontal;
 
+
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -42,6 +43,9 @@ public class PlayerMovement : MonoBehaviour
             //flag = true;
             animator.SetFloat("Horizontal", Math.Abs(horizontal));
         }
+
+
+
         /*else
         {
             if (flag)

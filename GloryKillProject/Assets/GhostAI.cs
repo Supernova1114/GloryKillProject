@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GhostAI : MonoBehaviour
 {
@@ -9,16 +10,21 @@ public class GhostAI : MonoBehaviour
     private bool flag = true;
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private Rigidbody2D body;
+    public float force;
 
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void Update()
     {
-        Debug.DrawLine(transform.position, (player.transform.position - transform.position).normalized);
-    }
+        body.AddForce(  (player.transform.position - transform.position).normalized* force  );
+    }*/
+
 
     /*private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,11 +42,11 @@ public class GhostAI : MonoBehaviour
 
                 animator.SetBool("Stagger", true);
                 yield return new WaitForSeconds(2);
-                
+
             }
             flag = true;//needs change
 
         }
-    }*/
-
+    }
+*/
 }

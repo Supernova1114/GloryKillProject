@@ -8,6 +8,8 @@ public class GloryKill : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    public GameObject circle;
+
     private static bool inGlory = false;
 
     // Start is called before the first frame update
@@ -18,11 +20,12 @@ public class GloryKill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.F) && inGlory == false)
         {
 
-            hit = Physics2D.Raycast(transform.position, transform.right, 2);
+            hit = Physics2D.Raycast(transform.position, new Vector2( transform.position.x + 1, transform.position.y ), 2);//fix
+            
+            Instantiate(circle, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation );//fiox
             
             if (inGlory == false && hit.collider != null)
             {
