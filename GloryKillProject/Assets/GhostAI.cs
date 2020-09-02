@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 public class GhostAI : MonoBehaviour
 {
     [SerializeField]
-    private Animator animator;
+    private protected Animator animator;
     private bool flag = true;
     [SerializeField]
     private GameObject player;
     [SerializeField]
     private Rigidbody2D body;
     public float force;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,17 +27,24 @@ public class GhostAI : MonoBehaviour
     }*/
 
 
-    /*private IEnumerator OnTriggerEnter2D(Collider2D collision)
+    public void TriggerCollision(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && flag)
+        StartCoroutine(HandleCollision(collision));
+    }
+
+    private IEnumerator HandleCollision(Collider2D collision)
+    {
+        print("Collidd");
+        /*if (collision.gameObject.CompareTag("Player") && flag)
         {
+            //print("aashdashdkj");
             flag = false;
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized);
-            //Debug.DrawLine(transform.position, (player.transform.position-transform.position).normalized);
 
             if (hit.collider.CompareTag("Player"))
             {
+                //print("jshakhdskjahdkas");
                 animator.SetTrigger("MakeAngry");
                 yield return new WaitForSeconds(2);
 
@@ -46,7 +54,15 @@ public class GhostAI : MonoBehaviour
             }
             flag = true;//needs change
 
-        }
+        }*/
+        yield return new WaitForSeconds(0);
+
     }
-*/
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print("heyy");
+    }
+
+
 }

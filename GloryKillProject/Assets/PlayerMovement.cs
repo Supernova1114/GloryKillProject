@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalRaw;
     private float horizontal;
 
-
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -85,7 +84,8 @@ public class PlayerMovement : MonoBehaviour
         body.AddForce(new Vector2(horzRaw * hMag, 0));
         body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
         //print(body.velocity.x);
-
+        body.AddForce(new Vector2(horzRaw * hMag, 0));//horzRaw is the HorizontalRawInput, hMag is the magnitude of force you want
+        body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);//brings a higher velocity down to the maxVelocity
     }
 
 }

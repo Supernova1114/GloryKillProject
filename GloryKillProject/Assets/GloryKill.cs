@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GloryKill : MonoBehaviour
 {
+
     private RaycastHit2D hit;
     [SerializeField]
     private Animator animator;
@@ -20,16 +21,18 @@ public class GloryKill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(transform.position, transform.right);
+
         if (Input.GetKeyDown(KeyCode.F) && inGlory == false)
         {
+            hit = Physics2D.Raycast(transform.position, transform.right, 2);
 
-            hit = Physics2D.Raycast(transform.position, new Vector2( transform.position.x + 1, transform.position.y ), 2);//fix
-            
-            Instantiate(circle, new Vector2(transform.position.x + 1, transform.position.y), transform.rotation );//fiox
-            
+
+            //Instantiate(circle, new Vector2(transform.position.x + Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y), transform.position.y), transform.rotation );//fiox
+
             if (inGlory == false && hit.collider != null)
             {
-                //print(hit.collider.gameObject.name);
+                print(hit.collider.gameObject.name);
                 if (hit.collider.CompareTag("ghostStag"))
                 {
                     inGlory = true;
