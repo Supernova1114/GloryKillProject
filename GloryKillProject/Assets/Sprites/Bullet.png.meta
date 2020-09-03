@@ -1,40 +1,10 @@
 fileFormatVersion: 2
-guid: 9c261628f5a8e4e4787efee6f314a3c3
+guid: bca3a3abb1287e1489217337b851fd79
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2606655008746717597
-    second: ghostGlory10012_0
-  - first:
-      213: 5521551775308697559
-    second: ghostGlory10012_1
-  - first:
-      213: -2730796192335317494
-    second: ghostGlory10012_2
-  - first:
-      213: -361122845456954466
-    second: ghostGlory10012_3
-  - first:
-      213: -2759914828066684106
-    second: ghostGlory10012_4
-  - first:
-      213: 1723070479019302224
-    second: ghostGlory10012_5
-  - first:
-      213: 4367812631854466618
-    second: ghostGlory10012_6
-  - first:
-      213: -4368620986769988393
-    second: ghostGlory10012_7
-  - first:
-      213: -7604165228766871375
-    second: ghostGlory10012_8
-  - first:
-      213: -3731846544645506424
-    second: ghostGlory10012_9
-  - first:
-      213: 304644477791309845
-    second: ghostGlory10012_10
+      213: 2208703988740019828
+    second: Bullet_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -132,22 +102,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ghostGlory10012_4
+      name: Bullet_0
       rect:
         serializedVersion: 2
-        x: 303
-        y: 0
-        width: 314
-        height: 323
-      alignment: 9
-      pivot: {x: 0.2306159, y: 0.42457938}
+        x: 491
+        y: 112
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63380c62610d2b9d0800000000000000
-      internalID: -2759914828066684106
+      spriteID: 47656d65394e6ae10800000000000000
+      internalID: 2208703988740019828
       vertices: []
       indices: 
       edges: []

@@ -6,13 +6,18 @@ using UnityEngine.EventSystems;
 public class GhostAI : MonoBehaviour
 {
     [SerializeField]
-    private protected Animator animator;
+    private Animator animator;
     private bool flag = true;
     [SerializeField]
     private GameObject player;
     [SerializeField]
     private Rigidbody2D body;
-    public float force;
+    [SerializeField]
+    private float force;
+    [SerializeField]
+    private float maxVelocity;
+
+    private bool angry = false;
 
 
     // Start is called before the first frame update
@@ -21,47 +26,45 @@ public class GhostAI : MonoBehaviour
         
     }
 
-    /*private void Update()
+    private void FixedUpdate()
     {
-        body.AddForce(  (player.transform.position - transform.position).normalized* force  );
-    }*/
-
-
-    public void TriggerCollision(Collider2D collision)
-    {
-        StartCoroutine(HandleCollision(collision));
+        if (angry)
+        {
+            body.AddForce((player.transform.position - transform.position).normalized * force);
+            body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
+        }
+        
     }
 
-    private IEnumerator HandleCollision(Collider2D collision)
+
+
+    private IEnumerator MakeAngry()
     {
-        print("Collidd");
-        /*if (collision.gameObject.CompareTag("Player") && flag)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 8);//dist a little more than trigger
+
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
-            //print("aashdashdkj");
-            flag = false;
+            //print(hit.collider.gameObject.name);
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized);
+            angry = true;
+            animator.SetTrigger("MakeAngry");
+            yield return new WaitForSeconds(10);
 
-            if (hit.collider.CompareTag("Player"))
-            {
-                //print("jshakhdskjahdkas");
-                animator.SetTrigger("MakeAngry");
-                yield return new WaitForSeconds(2);
+            animator.SetBool("Stagger", true);
 
-                animator.SetBool("Stagger", true);
-                yield return new WaitForSeconds(2);
+            angry = false;
+        }
 
-            }
-            flag = true;//needs change
-
-        }*/
-        yield return new WaitForSeconds(0);
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("heyy");
+        if (collision.CompareTag("Player") && flag)
+        {
+            flag = false;
+            StartCoroutine(MakeAngry());
+        }
     }
 
 
