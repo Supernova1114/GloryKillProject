@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool gloryKilling = false;
 
+    private static bool isWalkingBool = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,8 +45,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Horizontal", Math.Abs(horizontal));
         }
 
+        if (Mathf.Abs(horizontal) > 0)
+        {
+            isWalkingBool = true;
+        }
+        else
+        {
+            isWalkingBool = false;
+        }
 
 
+        //print(isWalkingBool);
         /*else
         {
             if (flag)
@@ -86,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
         //print(body.velocity.x);
         body.AddForce(new Vector2(horzRaw * hMag, 0));//horzRaw is the HorizontalRawInput, hMag is the magnitude of force you want
         body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);//brings a higher velocity down to the maxVelocity
+    }
+
+    public static bool isWalking()
+    {
+        return isWalkingBool;
     }
 
 }

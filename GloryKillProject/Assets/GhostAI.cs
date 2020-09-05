@@ -11,14 +11,13 @@ public class GhostAI : MonoBehaviour
     [SerializeField]
     private GameObject player;
     [SerializeField]
-    private Rigidbody2D body;
+    public Rigidbody2D body;
     [SerializeField]
     private float force;
     [SerializeField]
     private float maxVelocity;
 
-    private bool angry = false;
-
+    public bool isAngry = true;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +27,7 @@ public class GhostAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (angry)
+        if (isAngry)
         {
             body.AddForce((player.transform.position - transform.position).normalized * force);
             body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
@@ -46,16 +45,22 @@ public class GhostAI : MonoBehaviour
         {
             //print(hit.collider.gameObject.name);
 
-            angry = true;
+            isAngry = true;
             animator.SetTrigger("MakeAngry");
             yield return new WaitForSeconds(10);
 
             animator.SetBool("Stagger", true);
 
-            angry = false;
+            isAngry = false;
         }
 
 
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

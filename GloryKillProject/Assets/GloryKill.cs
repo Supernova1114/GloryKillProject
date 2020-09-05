@@ -32,8 +32,9 @@ public class GloryKill : MonoBehaviour
 
             if (inGlory == false && hit.collider != null)
             {
-                print(hit.collider.gameObject.name);
-                if (hit.collider.CompareTag("ghostStag"))
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
+                //print(hit.collider.gameObject.name);
+                if ( enemy != null && enemy.isStaggered )
                 {
                     inGlory = true;
                     StartCoroutine(PlayGlory());
@@ -42,6 +43,7 @@ public class GloryKill : MonoBehaviour
             }
         }
     }
+
 
     private IEnumerator PlayGlory()
     {
