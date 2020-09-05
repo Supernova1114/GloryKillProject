@@ -10,13 +10,13 @@ public class PointingScript : MonoBehaviour
     public Rigidbody2D body;
     Vector2 currentVelocity;
     public float maxSpeed;
-
-    PlayerMovement movement;
+    [SerializeField]
+    private GameObject gun;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        movement = GetComponentInParent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -35,28 +35,55 @@ public class PointingScript : MonoBehaviour
 
         Vector2 slopeVect = (mousePosition - (Vector2)transform.position);
 
-        if (!PlayerMovement.isWalking())
+        if (PlayerMovement.isWalking() || GloryKill.GetGloryStatus())
         {
-            slopeVect = Vector2.SmoothDamp(transform.right, slopeVect, ref currentVelocity, smoothTime, maxSpeed);
+            slopeVect = transform.localPosition + Vector3.down;
+            //slopeVect = Vector2.SmoothDamp(transform.right, transform.localPosition + Vector3.down, ref currentVelocity, 0.03f, maxSpeed);
         }
         else
         {
-            slopeVect = Vector2.SmoothDamp(transform.right, transform.localPosition + Vector3.down, ref currentVelocity, 0.03f, maxSpeed);
+            slopeVect = Vector2.SmoothDamp(transform.right, slopeVect, ref currentVelocity, smoothTime, maxSpeed);
         }
 
 
         float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y,slopeVect.x);
 
-        print(movement.gameObject.transform.rotation.eulerAngles.y);
+        //print(rotation);
+
+        if (!PlayerMovement.isWalking() && !GloryKill.GetGloryStatus())
+        {
+            if (rotation < 90 && rotation > -90)
+            {
+                gun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                player.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else
+            {
+                gun.transform.localRotation = Quaternion.Euler(180, 0, 0);
+                player.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+        }
 
 
+        transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 
-        transform.rotation = Quaternion.Euler(0, movement.gameObject.transform.rotation.eulerAngles.y, rotation);
-
+        /*if (PlayerMovement.facingRight)
+        {
+            
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(180f, 0f, -rotation);
+        }*/
 
         
-
         
+
+
+
+
+
+
 
     }
 }

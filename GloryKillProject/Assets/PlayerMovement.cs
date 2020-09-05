@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalRaw;
     private float horizontal;
 
+    private float jumpFactor;
+
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -16,10 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private float maxVelocity;
     [SerializeField]
     private float hMag;
+    [SerializeField]
+    private float jumpMag;
 
     private bool gloryKilling = false;
-
     private static bool isWalkingBool = false;
+
+
+    public static bool facingRight;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
     //private bool flag = true;
     void Update()
     {
+        if (transform.rotation.y == 0)
+            facingRight = true;
+        else
+            facingRight = false;
+
+
         gloryKilling = GloryKill.GetGloryStatus();
 
 
@@ -48,10 +60,21 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(horizontal) > 0)
         {
             isWalkingBool = true;
+            body.drag = 0;
         }
         else
         {
             isWalkingBool = false;
+            body.drag = 2;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpFactor = 1;
+        }
+        else
+        {
+            jumpFactor = 0;
         }
 
 
@@ -65,21 +88,16 @@ public class PlayerMovement : MonoBehaviour
             }
             
         }*/
-            
 
-    }
-
-    private void FixedUpdate()
-    {
         if (!gloryKilling)
-            Move(horizontalRaw);
+            Move(horizontalRaw, jumpFactor);
         else
             body.velocity = Vector2.zero;
 
-
     }
 
-    private void Move(float horzRaw)
+
+    private void Move(float horzRaw, float jumpFact)
     {
 
         switch (horzRaw)
@@ -92,16 +110,18 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
 
-        body.AddForce(new Vector2(horzRaw * hMag, 0));
-        body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
+        /*body.AddForce(new Vector2(horzRaw * hMag, 0));
+        body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);*/
         //print(body.velocity.x);
-        body.AddForce(new Vector2(horzRaw * hMag, 0));//horzRaw is the HorizontalRawInput, hMag is the magnitude of force you want
-        body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);//brings a higher velocity down to the maxVelocity
+        body.AddForce(new Vector2(horzRaw * hMag, jumpFact * jumpMag));//horzRaw is the HorizontalRawInput, hMag is the magnitude of force you want
+        body.velocity = new Vector2(Vector2.ClampMagnitude(body.velocity, maxVelocity).x, body.velocity.y);//brings a higher velocity down to the maxVelocity
+        
     }
 
     public static bool isWalking()
     {
         return isWalkingBool;
     }
+
 
 }
