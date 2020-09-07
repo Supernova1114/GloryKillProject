@@ -20,12 +20,17 @@ public class PlayerMovement : MonoBehaviour
     private float hMag;
     [SerializeField]
     private float jumpMag;
+    [SerializeField]
+    private int wallJumpXMag;
+    [SerializeField]
+    private int wallJumpYMag;
 
     private bool gloryKilling = false;
     private static bool isWalkingBool = false;
 
+    
 
-    public static bool facingRight;
+    public static int facingRight;
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +43,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (transform.rotation.y == 0)
-            facingRight = true;
+            facingRight = 1;
         else
-            facingRight = false;
+            facingRight = -1;
 
 
         gloryKilling = GloryKill.GetGloryStatus();
@@ -60,21 +65,44 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(horizontal) > 0)
         {
             isWalkingBool = true;
-            body.drag = 0;
+            //body.drag = 0;
         }
         else
         {
             isWalkingBool = false;
-            body.drag = 2;
+            //body.drag = 2;
         }
 
+
+        switch (horizontalRaw)
+        {
+            case 1:
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case -1:
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                break;
+        }///////////
+
+        jumpFactor = 0;
+
+        bool isOnWall = WallDetector.IsOnWall();
+        print(isOnWall);
         if (Input.GetButtonDown("Jump"))
         {
-            jumpFactor = 1;
-        }
-        else
-        {
-            jumpFactor = 0;
+            if (!GroundDetect.IsOnGround())
+            {
+                if (isOnWall)
+                {
+                    jumpFactor = 1;
+                    Move(-horizontalRaw * wallJumpXMag, jumpFactor * wallJumpYMag);
+                    jumpFactor = 0;
+                }
+            }
+            else
+            {
+                jumpFactor = 1;
+            }
         }
 
 
@@ -90,33 +118,30 @@ public class PlayerMovement : MonoBehaviour
         }*/
 
         if (!gloryKilling)
-            Move(horizontalRaw, jumpFactor);
+            Move(horizontalRaw * hMag, jumpFactor * jumpMag);
         else
             body.velocity = Vector2.zero;
 
     }
 
 
-    private void Move(float horzRaw, float jumpFact)
+    private void Move(float horzForce, float jumpForce)
     {
-
-        switch (horzRaw)
-        {
-            case 1:
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                break;
-            case -1:
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                break;
-        }
 
         /*body.AddForce(new Vector2(horzRaw * hMag, 0));
         body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);*/
         //print(body.velocity.x);
-        body.AddForce(new Vector2(horzRaw * hMag, jumpFact * jumpMag));//horzRaw is the HorizontalRawInput, hMag is the magnitude of force you want
+        body.AddForce(new Vector2(horzForce, jumpForce));//horzRaw is the HorizontalRawInput, hMag is the magnitude of force you want
         body.velocity = new Vector2(Vector2.ClampMagnitude(body.velocity, maxVelocity).x, body.velocity.y);//brings a higher velocity down to the maxVelocity
         
     }
+
+
+    private void WallJump()
+    {
+
+    }
+
 
     public static bool isWalking()
     {

@@ -25,7 +25,7 @@ public class PointingScript : MonoBehaviour
         /*mousePos = (Vector2)cameraCurr.ScreenToWorldPoint(Input.mousePosition);
 
         transform.up = (mousePos - transform.position)*/
-        currentVelocity = body.velocity;
+        //currentVelocity = body.velocity;
 
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         /*Vector2 direction = new Vector2(

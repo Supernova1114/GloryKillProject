@@ -25,7 +25,7 @@ public class GloryKill : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && inGlory == false)
         {
-            hit = Physics2D.Raycast(transform.position, transform.right, 2);
+            hit = Physics2D.Raycast(transform.position, transform.right, 1);//2
 
 
             //Instantiate(circle, new Vector2(transform.position.x + Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y), transform.position.y), transform.rotation );//fiox
@@ -52,7 +52,7 @@ public class GloryKill : MonoBehaviour
         animator.SetFloat("Horizontal", 1);
 
         int iterations = 0;
-        while ( iterations < 10 && (hit.collider.transform.position - transform.position).magnitude > 2.1)
+        while ( iterations < 10 && (hit.collider.transform.position - transform.position).magnitude > 1.05)//2.1
         {
             
             transform.position += new Vector3(0.1f * dir, 0, 0);
@@ -63,7 +63,7 @@ public class GloryKill : MonoBehaviour
 
         iterations = 0;
 
-        while (iterations < 10 && (hit.collider.transform.position - transform.position).magnitude < 2.1)
+        while (iterations < 10 && (hit.collider.transform.position - transform.position).magnitude < 1.05)//2.1
         {
 
             transform.position += new Vector3(0.1f * -dir, 0, 0);
