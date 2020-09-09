@@ -7,7 +7,9 @@ public class WallDetector : MonoBehaviour
     private int wallColls = 0;
 
     private static bool isOnWall;
-    // Start is called before the first frame update
+
+    [SerializeField]
+    private Rigidbody2D body;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,6 +18,7 @@ public class WallDetector : MonoBehaviour
         {
             wallColls++;
             CheckCollisions();
+            body.velocity = Vector2.zero;
         }
         
     }

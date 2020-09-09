@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private bool gloryKilling = false;
     private static bool isWalkingBool = false;
 
-    
+    private bool isWallJump = false;
 
     public static int facingRight;
 
@@ -84,18 +84,24 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }///////////
 
-        jumpFactor = 0;
+
 
         bool isOnWall = WallDetector.IsOnWall();
-        print(isOnWall);
+        //isWallJump = false;
+
+        //print(isOnWall);
+
+        jumpFactor = 0;
+
         if (Input.GetButtonDown("Jump"))
         {
             if (!GroundDetect.IsOnGround())
             {
                 if (isOnWall)
                 {
+                    //isWallJump = true;
                     jumpFactor = 1;
-                    Move(-horizontalRaw * wallJumpXMag, jumpFactor * wallJumpYMag);
+                    Move(-facingRight * wallJumpXMag, jumpFactor * wallJumpYMag);
                     jumpFactor = 0;
                 }
             }
@@ -103,8 +109,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 jumpFactor = 1;
             }
+
         }
 
+
+        //print(jumpFactor);
 
         //print(isWalkingBool);
         /*else
@@ -121,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
             Move(horizontalRaw * hMag, jumpFactor * jumpMag);
         else
             body.velocity = Vector2.zero;
+        
 
     }
 
