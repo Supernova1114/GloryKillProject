@@ -36,6 +36,7 @@ public class GloryKill : MonoBehaviour
                 //print(hit.collider.gameObject.name);
                 if ( enemy != null && enemy.isStaggered )
                 {
+                    
                     inGlory = true;
                     StartCoroutine(PlayGlory());
 
@@ -49,7 +50,7 @@ public class GloryKill : MonoBehaviour
     {
         float dir = (hit.collider.transform.position - transform.position).normalized.x;
 
-        animator.SetFloat("Horizontal", 1);
+        animator.SetFloat("HorizontalRaw", 1);
 
         int iterations = 0;
         while ( iterations < 10 && (hit.collider.transform.position - transform.position).magnitude > 1.05)//2.1
@@ -72,7 +73,7 @@ public class GloryKill : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        animator.SetFloat("Horizontal", 0);
+        animator.SetFloat("HorizontalRaw", 0);
 
         //print("play animation");
 

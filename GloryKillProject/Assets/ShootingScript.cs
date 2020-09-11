@@ -33,10 +33,10 @@ public class ShootingScript : MonoBehaviour
             Shoot();
         }
 
-        if (isWalking || GloryKill.GetGloryStatus())
+        /*if (isWalking || GloryKill.GetGloryStatus())
             arm.SetActive(false);
         else
-            arm.SetActive(true);
+            arm.SetActive(true);*/
 
 
 
