@@ -10,18 +10,29 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public Animator armAnimator;
 
+
     public float runSpeed = 40f;
 
     float horizontalMove = 0f;
     bool jump = false;
 
+    public static bool isGloryKilling = false;
+
+
 
     private void Update()
     {
+        isGloryKilling = GloryKill.GetGloryStatus();
+
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        animator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
-        armAnimator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
+        if (!isGloryKilling)
+        {
+            animator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
+            armAnimator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
+        }
+        
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -32,11 +43,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Move Character
+        if (!isGloryKilling)
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
         jump = false;
     }
-
-
 
 
 

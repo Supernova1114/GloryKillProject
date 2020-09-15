@@ -37,7 +37,7 @@ public class PointingScript : MonoBehaviour
 
         Vector2 slopeVect = (mousePosition - (Vector2)transform.position);
 
-        if (PlayerMovement.isWalking() || GloryKill.GetGloryStatus())
+        if (GloryKill.GetGloryStatus())
         {
             slopeVect = transform.localPosition + Vector3.down;
             //slopeVect = Vector2.SmoothDamp(transform.right, transform.localPosition + Vector3.down, ref currentVelocity, 0.03f, maxSpeed);
@@ -52,19 +52,25 @@ public class PointingScript : MonoBehaviour
 
         //print(rotation);
 
-        if (!PlayerMovement.isWalking() && !GloryKill.GetGloryStatus())
-        {
-            if (rotation < 90 && rotation > -90)
+            if (!GloryKill.GetGloryStatus())
             {
-                gun.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                player.transform.rotation = Quaternion.Euler(0, 0, 0);
+                if (rotation < 90 && rotation > -90)
+                {
+                    
+                    gun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+                    /*if (Input.GetMouseButtonDown(0))
+                    player.transform.rotation = Quaternion.Euler(0, 0, 0);*/
+                }
+                else
+                {
+                    gun.transform.localRotation = Quaternion.Euler(180, 0, 0);
+
+                    /*if (Input.GetMouseButtonDown(0))
+                    player.transform.rotation = Quaternion.Euler(0, 180, 0);*/
+                }
             }
-            else
-            {
-                gun.transform.localRotation = Quaternion.Euler(180, 0, 0);
-                player.transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
-        }
+        
 
 
         transform.rotation = Quaternion.Euler(0f, 0f, rotation);

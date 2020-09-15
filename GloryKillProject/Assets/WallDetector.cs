@@ -12,7 +12,7 @@ public class WallDetector : MonoBehaviour
     private Rigidbody2D body;
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 8)
         {
@@ -31,7 +31,7 @@ public class WallDetector : MonoBehaviour
             CheckCollisions();
         }
         
-    }
+    }*/
 
     private void CheckCollisions()
     {

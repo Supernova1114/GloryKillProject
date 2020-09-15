@@ -9,19 +9,18 @@ public class GloryKill : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
-    public GameObject circle;
+    //public GameObject circle;
 
     private static bool inGlory = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    public Rigidbody2D body;
+
+    public GameObject armObj;
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.right);
+        //Debug.DrawRay(transform.position, transform.right);
 
         if (Input.GetKeyDown(KeyCode.F) && inGlory == false)
         {
@@ -38,6 +37,9 @@ public class GloryKill : MonoBehaviour
                 {
                     
                     inGlory = true;
+                    PlayerMovement.isGloryKilling = true;
+                    body.bodyType = RigidbodyType2D.Static;
+                    armObj.SetActive(false);
                     StartCoroutine(PlayGlory());
 
                 }
@@ -93,6 +95,9 @@ public class GloryKill : MonoBehaviour
     void EndGloryKill()
     {
         inGlory = false;
+        PlayerMovement.isGloryKilling = false;
+        body.bodyType = RigidbodyType2D.Dynamic;
+        armObj.SetActive(true);
     }
 
 }
