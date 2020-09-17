@@ -15,6 +15,8 @@ public class PointingScript : MonoBehaviour
     private GameObject gun;
     public GameObject player;
 
+    private static bool isPointingRight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,7 @@ public class PointingScript : MonoBehaviour
                 {
                     
                     gun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    isPointingRight = true;
 
                     /*if (Input.GetMouseButtonDown(0))
                     player.transform.rotation = Quaternion.Euler(0, 0, 0);*/
@@ -65,12 +68,13 @@ public class PointingScript : MonoBehaviour
                 else
                 {
                     gun.transform.localRotation = Quaternion.Euler(180, 0, 0);
-
+                    isPointingRight = false;
                     /*if (Input.GetMouseButtonDown(0))
                     player.transform.rotation = Quaternion.Euler(0, 180, 0);*/
                 }
             }
-        
+
+        //print(IsPointingRight());
 
 
         transform.rotation = Quaternion.Euler(0f, 0f, rotation);
@@ -94,4 +98,11 @@ public class PointingScript : MonoBehaviour
 
 
     }
+
+
+    public static bool IsPointingRight()
+    {
+        return isPointingRight;
+    }
+
 }

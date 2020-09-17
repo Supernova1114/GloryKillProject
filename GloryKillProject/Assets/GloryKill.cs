@@ -24,8 +24,41 @@ public class GloryKill : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F) && inGlory == false)
         {
+
+            if (PointingScript.IsPointingRight())
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                CharacterController2D.m_FacingRight = true;
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                CharacterController2D.m_FacingRight = false;
+            }
+
+
             hit = Physics2D.Raycast(transform.position, transform.right, 1);//2
 
+            if (hit.collider == null)
+            {
+                //bool isRightTemp = CharacterController2D.m_FacingRight;
+
+                transform.Rotate(new Vector3(0, 180, 0));
+                //CharacterController2D.m_FacingRight = !isRightTemp;
+                CharacterController2D.m_FacingRight = !CharacterController2D.m_FacingRight;
+
+
+                hit = Physics2D.Raycast(transform.position, transform.right, 1);//2
+
+                if (hit.collider == null)
+                {
+                    transform.Rotate(new Vector3(0, 180, 0));
+                    CharacterController2D.m_FacingRight = !CharacterController2D.m_FacingRight;
+                }
+                    
+
+            }
+                
 
             //Instantiate(circle, new Vector2(transform.position.x + Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y), transform.position.y), transform.rotation );//fiox
 
@@ -54,11 +87,13 @@ public class GloryKill : MonoBehaviour
 
         animator.SetFloat("HorizontalRaw", 1);
 
+        body.bodyType = RigidbodyType2D.Dynamic;
+
         int iterations = 0;
         while ( iterations < 10 && (hit.collider.transform.position - transform.position).magnitude > 1.05)//2.1
         {
             
-            transform.position += new Vector3(0.1f * dir, 0, 0);
+            transform.position += new Vector3(0.05f * dir, 0, 0);
             iterations++;
 
             yield return new WaitForSeconds(0.01f);
@@ -69,15 +104,18 @@ public class GloryKill : MonoBehaviour
         while (iterations < 10 && (hit.collider.transform.position - transform.position).magnitude < 1.05)//2.1
         {
 
-            transform.position += new Vector3(0.1f * -dir, 0, 0);
+            transform.position += new Vector3(0.05f * -dir, 0, 0);
             iterations++;
 
             yield return new WaitForSeconds(0.01f);
         }
 
+        body.bodyType = RigidbodyType2D.Static;
+
         animator.SetFloat("HorizontalRaw", 0);
 
         //print("play animation");
+        
 
         Destroy(hit.collider.gameObject, 0);
 
