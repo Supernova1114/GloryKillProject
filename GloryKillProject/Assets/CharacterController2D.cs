@@ -1,19 +1,26 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
+	[SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+	[SerializeField] private float m_WallJumpForceX = 400f;
+	[SerializeField] private float m_WallJumpForceY = 400f;
+	[SerializeField] private float maxWallJVelocY = 400f;
 	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
-	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	[SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
+	[SerializeField] private LayerMask m_WhatIsWall;
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
-	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
+	[SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
+	[SerializeField] private Transform m_WallCheck;
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
+	private bool m_OnWall;				//Whether or not the player is on a wall.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
 	public static bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -30,6 +37,9 @@ public class CharacterController2D : MonoBehaviour
 	public BoolEvent OnCrouchEvent;
 	private bool m_wasCrouching = false;
 
+	public UnityEvent OnWallJumpEvent;
+
+
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -39,6 +49,9 @@ public class CharacterController2D : MonoBehaviour
 
 		if (OnCrouchEvent == null)
 			OnCrouchEvent = new BoolEvent();
+
+		if (OnWallJumpEvent == null)
+			OnWallJumpEvent = new UnityEvent();
 	}
 
 	private void FixedUpdate()
@@ -48,18 +61,48 @@ public class CharacterController2D : MonoBehaviour
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
-		for (int i = 0; i < colliders.Length; i++)
+		Collider2D[] collidersG = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+		for (int i = 0; i < collidersG.Length; i++)
 		{
-			if (colliders[i].gameObject != gameObject)
+			if (collidersG[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
 				if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}
 		}
+
+
+		bool wasOnWall = m_OnWall;
+		m_OnWall = false;
+
+		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+		Collider2D[] collidersW = Physics2D.OverlapCircleAll(m_WallCheck.position, k_GroundedRadius, m_WhatIsWall);
+		for (int i = 0; i < collidersW.Length; i++)
+		{
+			if (collidersW[i].gameObject != gameObject)
+			{
+				m_OnWall = true;
+				if (!wasOnWall)
+					OnWallJumpEvent.Invoke();
+			}
+		}
+
+
+
 	}
 
+
+	public IEnumerator WallJumpFinish()
+	{
+		m_MovementSmoothing = 0.2f;                                  
+		yield return new WaitForSeconds(0.2f);
+		m_MovementSmoothing = 0.05f;
+	}
+
+
+	Vector3 targetVelocity;
 
 	public void Move(float move, bool crouch, bool jump)
 	{
@@ -72,6 +115,9 @@ public class CharacterController2D : MonoBehaviour
 				crouch = true;
 			}
 		}
+
+
+		
 
 		//only control the player if grounded or airControl is turned on
 		if (m_Grounded || m_AirControl)
@@ -106,7 +152,8 @@ public class CharacterController2D : MonoBehaviour
 			}
 
 			// Move the character by finding the target velocity
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			if (m_MovementSmoothing < 1)
+			targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
@@ -123,14 +170,31 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
+
+
+		
+
 		// If the player should jump...
-		if (m_Grounded && jump)
+		if (jump)
 		{
-			// Add a vertical force to the player.
-			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			if (m_Grounded)
+			{
+				// Add a vertical force to the player.
+				m_Grounded = false;
+				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			}
+			else
+			{
+				if (m_OnWall)
+				{
+					print(Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad));
+					m_Grounded = false;
+					m_Rigidbody2D.AddForce(new Vector2(-m_WallJumpForceX * Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad), m_WallJumpForceY));
+					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Vector2.ClampMagnitude(m_Rigidbody2D.velocity, maxWallJVelocY).y);
+					StartCoroutine(WallJumpFinish());
 
-
+				}
+			}
 		}
 	}
 
