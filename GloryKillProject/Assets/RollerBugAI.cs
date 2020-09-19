@@ -35,7 +35,8 @@ public class RollerBugAI : MonoBehaviour
     private IEnumerator TransformBug()
     {
         yield return new WaitForSeconds(2);
-        body.AddForce(new Vector2(forceX, 0));
+        //body.AddForce(new Vector2(forceX, 0));
+        body.AddRelativeForce(new Vector2(forceX, 0.5f));
         yield return new WaitForSeconds(1.2f);
 
 

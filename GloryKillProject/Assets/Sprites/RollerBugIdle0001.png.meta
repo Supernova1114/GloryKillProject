@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9012e0b878be23149a7866b67fc2d7ef
+guid: 8e4af67ace0b48346858d0f73609b832
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 88806393174168839
-    second: arm2_0
+      213: -1076918884032755723
+    second: RollerBugIdle0001_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -102,13 +102,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: arm2_0
+      name: RollerBugIdle0001_0
       rect:
         serializedVersion: 2
-        x: 480
-        y: 119
-        width: 175
-        height: 11
+        x: 252
+        y: 56
+        width: 266
+        height: 261
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,8 +116,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7051eeea1f08b3100800000000000000
-      internalID: 88806393174168839
+      spriteID: 5f741511bf30e01f0800000000000000
+      internalID: -1076918884032755723
       vertices: []
       indices: 
       edges: []

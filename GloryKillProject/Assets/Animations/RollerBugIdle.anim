@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Arm Animation
+  m_Name: RollerBugIdle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 1856069572954778130, guid: 15b69b69ffde1744c9e415c422e622af,
+      value: {fileID: -1076918884032755723, guid: 8e4af67ace0b48346858d0f73609b832,
         type: 3}
     - time: 0.016666668
-      value: {fileID: 6561981130302480849, guid: 7f8abc0d1634377438057a133d8ea460,
+      value: {fileID: 2233694412368600803, guid: 61964ded3edea13429d7e2c7d7fa4101,
         type: 3}
     - time: 0.033333335
-      value: {fileID: 4661656976832223262, guid: 0010419e38c3f89498f741a1515087c0,
+      value: {fileID: -493554022138299057, guid: dea3ce733a1b41f4cb36d5ea9edfe620,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -47,9 +47,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 1856069572954778130, guid: 15b69b69ffde1744c9e415c422e622af, type: 3}
-    - {fileID: 6561981130302480849, guid: 7f8abc0d1634377438057a133d8ea460, type: 3}
-    - {fileID: 4661656976832223262, guid: 0010419e38c3f89498f741a1515087c0, type: 3}
+    - {fileID: -1076918884032755723, guid: 8e4af67ace0b48346858d0f73609b832, type: 3}
+    - {fileID: 2233694412368600803, guid: 61964ded3edea13429d7e2c7d7fa4101, type: 3}
+    - {fileID: -493554022138299057, guid: dea3ce733a1b41f4cb36d5ea9edfe620, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

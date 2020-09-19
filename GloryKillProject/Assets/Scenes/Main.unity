@@ -185,10 +185,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.74, y: 0.1}
+  m_Size: {x: 1.75, y: 0.11}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &198886482
@@ -2261,7 +2261,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1214577204
 BoxCollider2D:
@@ -2320,7 +2320,7 @@ MonoBehaviour:
   body: {fileID: 1214577203}
   animator: {fileID: 1214577202}
   headColl: {fileID: 1084552336}
-  forceX: -800
+  forceX: -2000
 --- !u!1 &1255895444
 GameObject:
   m_ObjectHideFlags: 0
