@@ -13,6 +13,11 @@ public class RollerBugAI : MonoBehaviour
     public Collider2D headColl;
     public float forceX;
 
+    public GameObject player;
+    public float force;
+    public float maxVelocity;
+    public bool angry = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +33,11 @@ public class RollerBugAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (angry)
+        {
+            body.AddForce(new Vector2((player.transform.position - transform.position).normalized.x, 0) * force);
+            body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
+        }
         
     }
 
@@ -37,7 +47,7 @@ public class RollerBugAI : MonoBehaviour
         yield return new WaitForSeconds(2);
         //body.AddForce(new Vector2(forceX, 0));
         body.AddRelativeForce(new Vector2(forceX, 0.5f));
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
 
 
         body.freezeRotation = true;
@@ -46,8 +56,9 @@ public class RollerBugAI : MonoBehaviour
 
         animator.SetTrigger("Transform");
 
-        
 
+        yield return new WaitForSeconds(2f);
+        angry = true;
 
 
     }
