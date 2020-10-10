@@ -41,7 +41,6 @@ public class ShootingScript : MonoBehaviour
 
 
     }
-
     private void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ghostStag
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
