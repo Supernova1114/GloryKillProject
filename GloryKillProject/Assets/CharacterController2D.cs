@@ -17,6 +17,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
 	[SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 	[SerializeField] private Transform m_WallCheck;
+	[SerializeField]
+	private Animator animator;
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -39,8 +41,16 @@ public class CharacterController2D : MonoBehaviour
 
 	public UnityEvent OnWallJumpEvent;
 
+	//shoulder for armObj
+	//private GameObject shoulderObj;
+	
 
-	private void Awake()
+    private void Start()
+    {
+		//shoulderObj = gameObject.transform.Find("Shoulder").gameObject;
+    }
+
+    private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -106,6 +116,10 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool crouch, bool jump)
 	{
+
+		animator.SetBool("inAir", !m_Grounded);
+
+
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
 		{
@@ -115,7 +129,6 @@ public class CharacterController2D : MonoBehaviour
 				crouch = true;
 			}
 		}
-
 
 		
 
@@ -207,9 +220,16 @@ public class CharacterController2D : MonoBehaviour
 
 
 		if (m_FacingRight)
+        {
 			transform.rotation = Quaternion.Euler(0, 0, 0);
+			//shoulderObj.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+		}
 		else
+        {
 			transform.rotation = Quaternion.Euler(0, 180, 0);
+			//shoulderObj.transform.rotation = Quaternion.Euler(0, 0, 0);
+		}
 
 		/*// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
