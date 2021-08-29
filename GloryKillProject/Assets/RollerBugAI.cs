@@ -8,23 +8,35 @@ public class RollerBugAI : MonoBehaviour
 
     public Rigidbody2D body;
     public Animator animator;
+
+    public Transform returnMarker;
+
+    [SerializeField]
     private Collider2D circleColl;
+    [SerializeField]
     private Collider2D boxColl;
     [SerializeField]
     private Collider2D headColl;
-    public float forceX;
+
+    //public float forceX;
 
     public GameObject player;
     public float force;
     public float maxVelocity;
+
+    public float rollAngularVelocity = 4;
+
     public bool angry = false;
 
+    private bool isWaitingForCoroutine = false;
+
+
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        circleColl = GetComponent<CircleCollider2D>();
-        boxColl = GetComponent<BoxCollider2D>();
        
 
         EnableHeadColl(0);
@@ -44,13 +56,34 @@ public class RollerBugAI : MonoBehaviour
             }
             else
             {
-                body.angularVelocity = 2000 * -(player.transform.position - transform.position).normalized.x;
+                body.angularVelocity = rollAngularVelocity * -(player.transform.position - transform.position).normalized.x;
             }
             
         }
         
     }
 
+    private IEnumerator ReturnToFloor()
+    {
+        body.constraints = RigidbodyConstraints2D.FreezePosition;
+
+        yield return new WaitForSeconds(2);
+
+        angry = false;
+
+        
+
+        transform.localPosition = returnMarker.localPosition;
+
+        yield return new WaitForSeconds(2);
+
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        body.constraints = RigidbodyConstraints2D.None;
+
+        isWaitingForCoroutine = false;
+        
+    }
 
     private IEnumerator TransformBug(bool ballMode)
     {
@@ -88,72 +121,58 @@ public class RollerBugAI : MonoBehaviour
 
             //angry = true;
         }
-
+        isWaitingForCoroutine = false;
     }
 
     
+    //testRun
     private IEnumerator testCase()
     {
-        float temp = 1f;
-
+        angry = false;
 
         yield return new WaitForSeconds(5);
 
-        angry = true;
+        for (int i=0; i<2; i++)
+        {
 
-        yield return new WaitForSeconds(8);
+            
+            isWaitingForCoroutine = true;
+            StartCoroutine(TransformBug(false));
+            while (isWaitingForCoroutine)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
 
-        angry = false;
-        StartCoroutine(TransformBug(false));
+            angry = true;
 
-        //wait for transform to finnish
-        yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(12);
 
-        angry = true;
+            angry = false;
 
-        yield return new WaitForSeconds(8);
+            isWaitingForCoroutine = true;
+            StartCoroutine(TransformBug(true));
+            while (isWaitingForCoroutine)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
 
-        angry = false;
+            angry = true;
 
-        StartCoroutine(TransformBug(true));
-        yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(12);
 
-        angry = true;
-
-        yield return new WaitForSeconds(8);
-
-        angry = false;
-
-
+            isWaitingForCoroutine = true;
+            StartCoroutine(ReturnToFloor());
+            while (isWaitingForCoroutine)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
 
 
-        /*yield return new WaitForSeconds(temp);
 
-        StartCoroutine(TransformBug(true));
 
-        yield return new WaitForSeconds(temp);
 
-        StartCoroutine(TransformBug(false));
+        }
 
-        yield return new WaitForSeconds(temp);
-
-        StartCoroutine(TransformBug(true));
-
-        yield return new WaitForSeconds(temp);
-
-        StartCoroutine(TransformBug(false));
-
-        yield return new WaitForSeconds(temp);
-
-        StartCoroutine(TransformBug(true));
-
-        yield return new WaitForSeconds(temp);
-
-        StartCoroutine(TransformBug(false));
-
-        yield return new WaitForSeconds(temp);
-
-        StartCoroutine(TransformBug(true));*/
 
     }
 
@@ -178,6 +197,9 @@ public class RollerBugAI : MonoBehaviour
         else
             headColl.enabled = false;
     }
+
+
+    
 
 
 

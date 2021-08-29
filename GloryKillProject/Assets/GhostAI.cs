@@ -32,6 +32,12 @@ public class GhostAI : MonoBehaviour
             body.AddForce((player.transform.position - transform.position).normalized * force);
             body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
         }
+        else
+        {
+            //temp
+            body.AddForce((player.transform.position - transform.position).normalized * force * 0.5f);
+            body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity * 0.5f);
+        }
         
     }
 
@@ -47,7 +53,7 @@ public class GhostAI : MonoBehaviour
 
             isAngry = true;
             animator.SetTrigger("MakeAngry");
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(5);
 
             animator.SetBool("Stagger", true);
 

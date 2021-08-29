@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController2D controller;
     public Animator animator;
-    public Animator armAnimator;
+    //public Animator armAnimator;
 
 
     public float runSpeed = 40f;
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isGloryKilling)
         {
             animator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
-            armAnimator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
+            //armAnimator.SetFloat("HorizontalRaw", Mathf.Abs(horizontalMove));
         }
         
 

@@ -32,7 +32,8 @@ public class BouncePadController : MonoBehaviour
             {
                 nextBounceTime = Time.time + coolDownTime;
 
-                collision.attachedRigidbody.AddForce(new Vector2(0, bounceForce));
+                //collision.attachedRigidbody.AddForce(new Vector2(0, bounceForce));
+                collision.attachedRigidbody.AddForce(transform.up * bounceForce);
             }
         }
         
