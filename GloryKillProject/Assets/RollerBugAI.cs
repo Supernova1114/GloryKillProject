@@ -48,7 +48,7 @@ public class RollerBugAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+       //firePoint.transform.rotation = 
 
         EnableHeadColl(0);
 
@@ -60,7 +60,10 @@ public class RollerBugAI : MonoBehaviour
     {
         if (angry)
         {
-            Vector2 direction = player.transform.position - firePoint.transform.position;
+            //relative to player and roller bug
+            Vector2 direction = player.transform.position - transform.position;
+            //relative to player and firePoint
+            Vector2 firePointDir = player.transform.position - firePoint.transform.position;
 
             if (!animator.GetBool("ballMode"))
             {
@@ -75,7 +78,7 @@ public class RollerBugAI : MonoBehaviour
 
                 //calculate shot direction with smoothDamp
                
-                Vector2 slopeVect = Vector2.SmoothDamp(firePoint.transform.right, direction, ref currentVelocity, smoothTime, maxSpeed);
+                Vector2 slopeVect = Vector2.SmoothDamp(firePoint.transform.right, firePointDir, ref currentVelocity, smoothTime, maxSpeed);
                 float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y, slopeVect.x);
                 firePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 
