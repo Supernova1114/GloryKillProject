@@ -30,9 +30,20 @@ public class RollerBugAI : MonoBehaviour
 
     private bool isWaitingForCoroutine = false;
 
+    public float shotCooldownTime;
+    private float nextShotTime = 0;
+
+    //for smoothDamp aiming
+    [Header("SmoothDamp Aim")]
+    [Space]
+    public float smoothTime;
+    public float maxSpeed;
+    public GameObject firePoint;
+    public GameObject bullet;
+    private Vector2 currentVelocity;
 
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -49,14 +60,40 @@ public class RollerBugAI : MonoBehaviour
     {
         if (angry)
         {
+            Vector2 direction = player.transform.position - firePoint.transform.position;
+
             if (!animator.GetBool("ballMode"))
             {
-                body.AddForce(new Vector2((player.transform.position - transform.position).normalized.x, 0) * force);
+                body.AddForce(new Vector2(direction.normalized.x, 0) * force);
                 body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
+
+                //change direction to face player
+                if (direction.normalized.x > 0)
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                else
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                //calculate shot direction with smoothDamp
+               
+                Vector2 slopeVect = Vector2.SmoothDamp(firePoint.transform.right, direction, ref currentVelocity, smoothTime, maxSpeed);
+                float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y, slopeVect.x);
+                firePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+
+
+
+                //shoot with coolDown
+                if (Time.time > nextShotTime)
+                {
+                    nextShotTime = Time.time + shotCooldownTime;
+                    Instantiate(bullet,firePoint.transform.position, firePoint.transform.rotation);
+
+                }
+
+
             }
             else
             {
-                body.angularVelocity = rollAngularVelocity * -(player.transform.position - transform.position).normalized.x;
+                body.angularVelocity = rollAngularVelocity * -direction.normalized.x;
             }
             
         }
@@ -105,6 +142,7 @@ public class RollerBugAI : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
 
+
             //angry = true;
         }
         else
@@ -132,7 +170,7 @@ public class RollerBugAI : MonoBehaviour
 
         yield return new WaitForSeconds(5);
 
-        for (int i=0; i<2; i++)
+        for (int i=0; i<4; i++)
         {
 
             
@@ -158,7 +196,7 @@ public class RollerBugAI : MonoBehaviour
 
             angry = true;
 
-            yield return new WaitForSeconds(12);
+            yield return new WaitForSeconds(15);
 
             isWaitingForCoroutine = true;
             StartCoroutine(ReturnToFloor());

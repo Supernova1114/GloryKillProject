@@ -37,17 +37,13 @@ public class PlayerDamageHandler : MonoBehaviour
 
             if (Time.time > nextHurtTime)
             {
-                if (collision.CompareTag("Enemy"))
-                {
-                    nextHurtTime = Time.time + hurtTime;
-                    print("Enemy Hurt Player");
+                nextHurtTime = Time.time + hurtTime;
+                print("Enemy Hurt Player");
 
-                    //do hurt
+                //do hurt
 
 
-                    StartCoroutine(HurtPlayer(collision));
-
-                }
+                StartCoroutine(HurtPlayer(collision));
             }
         }
     }
