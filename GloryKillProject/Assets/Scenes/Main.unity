@@ -720,6 +720,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1961970062}
+  - {fileID: 1010878228}
   m_Father: {fileID: 1214577201}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1533,6 +1534,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStaggered: 0
   health: 100
+--- !u!1 &1010878227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1010878228}
+  m_Layer: 0
+  m_Name: HeadMarker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1010878228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010878227}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.03, y: 1.043, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 476061615}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1058718756
 GameObject:
   m_ObjectHideFlags: 3
@@ -2069,6 +2100,7 @@ MonoBehaviour:
   maxSpeed: 1000
   firePoint: {fileID: 1961970061}
   bullet: {fileID: 8416422467288976123, guid: 26bbc323049e09144bfa5d7a7e729781, type: 3}
+  rollerBugTestHead: {fileID: 1492399162}
 --- !u!1 &1255895444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2886,7 +2918,7 @@ MonoBehaviour:
       bevelSize: 0
       spriteIndex: 0
       corner: 1
-    - position: {x: 3.097464, y: -2.1596317, z: 0}
+    - position: {x: 2.3462791, y: -4.0375957, z: 0}
       leftTangent: {x: -0.94017464, y: 0.22322477, z: -0}
       rightTangent: {x: 0.7124452, y: -0.1691552, z: 0}
       mode: 1
@@ -2929,7 +2961,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2965,8 +2997,8 @@ SpriteShapeRenderer:
   m_Sprites:
   - {fileID: 3047809059076532741, guid: b6e443b51c548274f9d495c32357723c, type: 3}
   m_LocalAABB:
-    m_Center: {x: 2.2680383, y: -1.9924152, z: -0.00005}
-    m_Extent: {x: 2.2680383, y: 1.9924152, z: 0.00005}
+    m_Center: {x: 2.2574594, y: -2.0840633, z: -0.00005}
+    m_Extent: {x: 2.2574594, y: 2.0840633, z: 0.00005}
 --- !u!4 &1432478860
 Transform:
   m_ObjectHideFlags: 0
@@ -2974,13 +3006,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432478857}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.22832374, y: -0.7511475, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1492399163}
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_Children: []
+  m_Father: {fileID: 1914146448}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1432478861
 MonoBehaviour:
@@ -2996,6 +3027,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteShapeController: {fileID: 1432478858}
   rollerBug: {fileID: 1214577199}
+  rollerBugTestHead: {fileID: 1492399162}
+  rollerBugHeadMarker: {fileID: 1010878228}
+  smoothTime: 0.6
+  smoTime: 0.8
 --- !u!1 &1492399162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,7 +3042,7 @@ GameObject:
   - component: {fileID: 1492399163}
   - component: {fileID: 1492399164}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: RollerBugTestHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3020,12 +3055,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492399162}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.15, y: -3.04, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.3783238, y: -3.7911475, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1432478860}
-  m_RootOrder: 0
+  m_Father: {fileID: 1914146448}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1492399164
 SpriteRenderer:
@@ -3578,6 +3613,8 @@ Transform:
   m_Children:
   - {fileID: 1214577201}
   - {fileID: 1203339022}
+  - {fileID: 1492399163}
+  - {fileID: 1432478860}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

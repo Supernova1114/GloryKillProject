@@ -42,6 +42,7 @@ public class RollerBugAI : MonoBehaviour
     public GameObject bullet;
     private Vector2 currentVelocity;
 
+    public GameObject rollerBugTestHead;
 
 
 
@@ -72,15 +73,22 @@ public class RollerBugAI : MonoBehaviour
 
                 //change direction to face player
                 if (direction.normalized.x > 0)
+                {
                     transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
                 else
+                {
                     transform.rotation = Quaternion.Euler(0, 0, 0);
 
+                }
+
                 //calculate shot direction with smoothDamp
-               
+
                 Vector2 slopeVect = Vector2.SmoothDamp(firePoint.transform.right, firePointDir, ref currentVelocity, smoothTime, maxSpeed);
                 float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y, slopeVect.x);
                 firePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+
+                rollerBugTestHead.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 
 
 
