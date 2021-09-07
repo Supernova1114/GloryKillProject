@@ -74,11 +74,13 @@ public class RollerBugAI : MonoBehaviour
                 //change direction to face player
                 if (direction.normalized.x > 0)
                 {
+                    //rollerBugTestHead.transform.rotation = Quaternion.Euler(180, 180, rollerBugTestHead.transform.rotation.eulerAngles.z);
                     transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 else
                 {
                     transform.rotation = Quaternion.Euler(0, 0, 0);
+                    //rollerBugTestHead.transform.rotation = Quaternion.Euler(0, 0, rollerBugTestHead.transform.rotation.eulerAngles.z);
 
                 }
 
@@ -88,7 +90,15 @@ public class RollerBugAI : MonoBehaviour
                 float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y, slopeVect.x);
                 firePoint.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 
-                rollerBugTestHead.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+                //TEMP
+                //Rollerbug test head look at player
+                //Vector2 testHeadDir = -(player.transform.position - rollerBugTestHead.transform.position);
+                //float rot = Mathf.Rad2Deg * Mathf.Atan2(testHeadDir.y, testHeadDir.x);
+
+                //rollerBugTestHead.transform.rotation = Quaternion.Euler(rollerBugTestHead.transform.rotation.eulerAngles.x, rollerBugTestHead.transform.rotation.eulerAngles.y, rot);
+                
+                
+                
 
 
 

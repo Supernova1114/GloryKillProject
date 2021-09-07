@@ -43,9 +43,9 @@ public class RollerBugNeckController : MonoBehaviour
         rollerBugTestHead.transform.position = move;
 
         Vector2 curr = spline.GetPosition(1);
-        Vector2 tar = targetPosition + Vector2.one;
+        Vector2 tar = rollerBug.transform.position - -(rollerBugTestHead.transform.position - rollerBugHeadMarker.position);
 
-        Vector2 move2 = Vector2.SmoothDamp(curr, tar + new Vector2(2,2), ref currVel, smoTime);
+        Vector2 move2 = Vector2.SmoothDamp(curr, tar, ref currVel, smoTime);
 
         spline.SetPosition(1, move2);
 

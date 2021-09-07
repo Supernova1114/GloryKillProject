@@ -3030,7 +3030,7 @@ MonoBehaviour:
   rollerBugTestHead: {fileID: 1492399162}
   rollerBugHeadMarker: {fileID: 1010878228}
   smoothTime: 0.6
-  smoTime: 0.8
+  smoTime: 0.5
 --- !u!1 &1492399162
 GameObject:
   m_ObjectHideFlags: 0
