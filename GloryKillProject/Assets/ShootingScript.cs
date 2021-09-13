@@ -13,8 +13,7 @@ public class ShootingScript : MonoBehaviour
     [SerializeField]
     private GameObject bulletPrefab;
 
-    private bool isWalking = false;//takes from PlayerMovement isWalkingBool;
-    // Start is called before the first frame update
+    
     void Start()
     {
         
@@ -23,24 +22,14 @@ public class ShootingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerMovement.isWalking())
-            isWalking = true;
-        else
-            isWalking = false;
 
-        if (Input.GetMouseButtonDown(0) && !isWalking)
+        if (Input.GetMouseButtonDown(0))
         {
             Shoot();
         }
 
-        /*if (isWalking || GloryKill.GetGloryStatus())
-            arm.SetActive(false);
-        else
-            arm.SetActive(true);*/
-
-
-
     }
+
     private void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

@@ -5,19 +5,6 @@ using UnityEngine.EventSystems;
 
 public class GhostAI : MonoBehaviour
 {
-    [SerializeField]
-    private Animator animator;
-    private bool flag = true;
-    [SerializeField]
-    private GameObject player;
-    [SerializeField]
-    public Rigidbody2D body;
-    [SerializeField]
-    private float force;
-    [SerializeField]
-    private float maxVelocity;
-
-    public bool isAngry = true;
 
     // Start is called before the first frame update
     void Start()
@@ -27,55 +14,20 @@ public class GhostAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isAngry)
-        {
-            body.AddForce((player.transform.position - transform.position).normalized * force);
-            body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
-        }
-        else
-        {
-            //temp
-            body.AddForce((player.transform.position - transform.position).normalized * force * 0.5f);
-            body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity * 0.5f);
-        }
+        
         
     }
 
-
-
-    private IEnumerator MakeAngry()
+    public void handleDie()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.transform.position - transform.position).normalized, 8);//dist a little more than trigger
-
-        if (hit.collider != null && hit.collider.CompareTag("Player"))
-        {
-            //print(hit.collider.gameObject.name);
-
-            isAngry = true;
-            animator.SetTrigger("MakeAngry");
-            yield return new WaitForSeconds(5);
-
-            animator.SetBool("Stagger", true);
-
-            isAngry = false;
-        }
-
-
+        print(gameObject.name + " died");
+        GameObject.Destroy(gameObject, 0);
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void handleStagger()
     {
-        
-    }
+        print(gameObject.name + " staggered");
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && flag)
-        {
-            flag = false;
-            StartCoroutine(MakeAngry());
-        }
     }
 
 

@@ -23,7 +23,7 @@ public class bullet : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
 
-            Debug.Log(collision.name);
+            //Debug.Log(collision.name);
             Destroy(gameObject);
         }
         

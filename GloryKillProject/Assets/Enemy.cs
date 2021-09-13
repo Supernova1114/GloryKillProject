@@ -4,39 +4,66 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public bool isStaggered = false;
+    public bool staggered = false;
 
 
     [SerializeField]
     private int health;
 
+    //When the health is below this value it will stagger and replace current health with stagger health
+    [SerializeField]
+    private int staggerHealth;
+
     //public GameObject deathEffect;
-    private GhostAI ghostAI;
+    [SerializeField]
+    private Component enemyAIScript;
 
     private void Start()
     {
-        ghostAI = GetComponent<GhostAI>();
+        
     }
 
     public void TakeDamage (int damage)
     {
-        health -= damage;
+
+        if (staggered == false)
+        {
+            health -= damage;
+        }
+        else
+        {
+            health--;
+        }
 
         if (health <= 0)//fix stuff for stagger
         {
-            if (isStaggered == false)
+            if (staggered == false)
             {
-                isStaggered = true;
+                Stagger();
+            }
+            else
+            {
                 Die();
             }
             
         }
     }
 
-    private void Die()//Stagger
+    private void Die()
     {
-        ghostAI.body.gravityScale = 1;
-        ghostAI.isAngry = false;
+        enemyAIScript.SendMessage("handleDie");
+    }
+    
+    private void Stagger()
+    {
+        staggered = true;
+        health = staggerHealth;
+        enemyAIScript.SendMessage("handleStagger");
+    }
+
+    public bool isStaggered()
+    {
+        return staggered;
     }
 
 

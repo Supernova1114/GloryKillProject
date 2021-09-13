@@ -20,26 +20,19 @@ public class PointingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        /*mousePos = (Vector2)cameraCurr.ScreenToWorldPoint(Input.mousePosition);
-
-        transform.up = (mousePos - transform.position)*/
-        //currentVelocity = body.velocity;
-
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        /*Vector2 direction = new Vector2(
-        mousePosition.x - transform.position.x,
-        mousePosition.y - transform.position.y
-        );*/
+        
 
         Vector2 slopeVect = (mousePosition - (Vector2)transform.position);
 
-        if (GloryKill.GetGloryStatus())
+        if (GloryKill.Status())
         {
             slopeVect = transform.localPosition + Vector3.down;
             //slopeVect = Vector2.SmoothDamp(transform.right, transform.localPosition + Vector3.down, ref currentVelocity, 0.03f, maxSpeed);
@@ -50,52 +43,31 @@ public class PointingScript : MonoBehaviour
         }
 
 
-        float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y,slopeVect.x);
+        if (!GloryKill.Status()) 
+        {
+            float rotation = Mathf.Rad2Deg * Mathf.Atan2(slopeVect.y, slopeVect.x);
 
-        //print(rotation);
 
-            if (!GloryKill.GetGloryStatus())
+            if (rotation < 90 && rotation > -90)
             {
-                if (rotation < 90 && rotation > -90)
-                {
-                    
-                    gun.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    isPointingRight = true;
 
-                    /*if (Input.GetMouseButtonDown(0))
-                    player.transform.rotation = Quaternion.Euler(0, 0, 0);*/
-                }
-                else
-                {
-                    gun.transform.localRotation = Quaternion.Euler(180, 0, 0);
-                    isPointingRight = false;
-                    /*if (Input.GetMouseButtonDown(0))
-                    player.transform.rotation = Quaternion.Euler(0, 180, 0);*/
-                }
+                gun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                isPointingRight = true;
+
+
+            }
+            else
+            {
+                gun.transform.localRotation = Quaternion.Euler(180, 0, 0);
+                isPointingRight = false;
+
             }
 
-        //print(IsPointingRight());
 
-
-        transform.rotation = Quaternion.Euler(0f, 0f, rotation);
-
-        /*if (PlayerMovement.facingRight)
-        {
-            
+            transform.rotation = Quaternion.Euler(0f, 0f, rotation);
         }
-        else
-        {
-            transform.rotation = Quaternion.Euler(180f, 0f, -rotation);
-        }*/
 
         
-        
-
-
-
-
-
-
 
     }
 

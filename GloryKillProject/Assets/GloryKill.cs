@@ -11,7 +11,7 @@ public class GloryKill : MonoBehaviour
 
     //public GameObject circle;
 
-    private static bool inGlory = false;
+    private static bool isGloryKilling = false;
 
     public Rigidbody2D body;
 
@@ -22,7 +22,7 @@ public class GloryKill : MonoBehaviour
     {
         //Debug.DrawRay(transform.position, transform.right);
 
-        if (Input.GetKeyDown(KeyCode.F) && inGlory == false)
+        if (Input.GetKeyDown(KeyCode.F) && isGloryKilling == false)
         {
 
             if (PointingScript.IsPointingRight())
@@ -36,6 +36,7 @@ public class GloryKill : MonoBehaviour
                 CharacterController2D.m_FacingRight = false;
             }
 
+            //print(PointingScript.IsPointingRight());
 
             hit = Physics2D.Raycast(transform.position, transform.right, 1);//2
 
@@ -62,17 +63,15 @@ public class GloryKill : MonoBehaviour
 
             //Instantiate(circle, new Vector2(transform.position.x + Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y), transform.position.y), transform.rotation );//fiox
 
-            if (inGlory == false && hit.collider != null)
+            if (hit.collider != null)
             {
                 Enemy enemy = hit.collider.GetComponent<Enemy>();
                 //print(hit.collider.gameObject.name);
-                if ( enemy != null && enemy.isStaggered )
+                if ( enemy != null && enemy.isStaggered() )
                 {
+
+                    isGloryKilling = true;
                     
-                    inGlory = true;
-                    PlayerMovement.isGloryKilling = true;
-                    body.bodyType = RigidbodyType2D.Static;
-                    armObj.SetActive(false);
                     StartCoroutine(PlayGlory());
 
                 }
@@ -83,13 +82,18 @@ public class GloryKill : MonoBehaviour
 
     private IEnumerator PlayGlory()
     {
+        body.bodyType = RigidbodyType2D.Static;
+        armObj.SetActive(false);
+
         float dir = (hit.collider.transform.position - transform.position).normalized.x;
 
+        //Walk animation yes
         animator.SetFloat("HorizontalRaw", 1);
 
-        body.bodyType = RigidbodyType2D.Dynamic;
 
         int iterations = 0;
+
+        //move away from enemy
         while ( iterations < 10 && (hit.collider.transform.position - transform.position).magnitude > 1.05)//2.1
         {
             
@@ -101,6 +105,7 @@ public class GloryKill : MonoBehaviour
 
         iterations = 0;
 
+        //move towards enemy
         while (iterations < 10 && (hit.collider.transform.position - transform.position).magnitude < 1.05)//2.1
         {
 
@@ -110,12 +115,8 @@ public class GloryKill : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        body.bodyType = RigidbodyType2D.Static;
-
+        //Walk animation no
         animator.SetFloat("HorizontalRaw", 0);
-
-        //print("play animation");
-        
 
         Destroy(hit.collider.gameObject, 0);
 
@@ -125,15 +126,15 @@ public class GloryKill : MonoBehaviour
 
     }
 
-    public static bool GetGloryStatus()
+    public static bool Status()
     {
-        return inGlory;
+        return isGloryKilling;
     }
     
     void EndGloryKill()
     {
-        inGlory = false;
-        PlayerMovement.isGloryKilling = false;
+        isGloryKilling = false;
+
         body.bodyType = RigidbodyType2D.Dynamic;
         armObj.SetActive(true);
     }
