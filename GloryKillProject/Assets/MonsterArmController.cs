@@ -8,7 +8,6 @@ public class MonsterArmController : MonoBehaviour
     private UnityEngine.U2D.SpriteShapeController spriteShapeController;
 
     public GameObject armObject;
-    public GameObject knob;
 
     public float armDistance = 0;
 
@@ -35,7 +34,9 @@ public class MonsterArmController : MonoBehaviour
 
         for (int i = 0; i < splineList.Count; i++)
         {
-            splineList[i].SetPosition(1, transform.position + new Vector3(0, 0, 1));
+            splineList[i].SetPosition(0, transform.position);
+
+            splineList[i].SetPosition(1, transform.position + new Vector3(0.5f, 0, 0));
         }
 
 
@@ -47,7 +48,14 @@ public class MonsterArmController : MonoBehaviour
     {
         for (int i = 0; i < splineList.Count; i++)
         {
-            splineList[i].SetPosition(0, transform.position);
+            try
+            {
+                splineList[i].SetPosition(0, transform.position);
+            }
+            catch (System.ArgumentException)
+            {
+
+            }
         }
 
         //fix based on amount of arms
@@ -70,16 +78,29 @@ public class MonsterArmController : MonoBehaviour
             //resets if too long
             if (distance > armDistance)
             {
-                splineList[i].SetPosition(1, transform.position + new Vector3(0, 0, 1));
+                try
+                {
+                    splineList[i].SetPosition(1, transform.position + new Vector3(0.5f, 0, 0));
+                }
+                catch (System.ArgumentException)
+                {
+
+                }
             }
             else
             {
                 //if not being used
-                if (distance <= 0.2f)
+                if (distance <= 0.7f)
                     if (hitList[i].collider != null)
                     {
+                        try
+                        {
+                            splineList[i].SetPosition(1, hitList[i].point);
+                        }
+                        catch (System.ArgumentException)
+                        {
 
-                        splineList[i].SetPosition(1, hitList[i].point);
+                        }
                     }
 
             }

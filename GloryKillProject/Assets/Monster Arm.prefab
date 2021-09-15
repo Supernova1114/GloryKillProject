@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8412197566470854005}
-  - component: {fileID: 8412197566470854004}
-  - component: {fileID: 8412197566470854011}
+  - component: {fileID: 9194687812065749534}
+  - component: {fileID: -4528097840505964955}
   m_Layer: 0
   m_Name: Monster Arm
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1971053207 &8412197566470854004
+--- !u!1971053207 &9194687812065749534
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,11 +42,12 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,9 +79,9 @@ SpriteShapeRenderer:
   m_Sprites:
   - {fileID: 3047809059076532741, guid: b6e443b51c548274f9d495c32357723c, type: 3}
   m_LocalAABB:
-    m_Center: {x: 0.99999994, y: 0, z: -0.00005}
+    m_Center: {x: 0, y: 0, z: -0.00005}
     m_Extent: {x: 1.06, y: 0.08, z: 0.00005}
---- !u!114 &8412197566470854011
+--- !u!114 &-4528097840505964955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,7 +96,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 1
     m_ControlPoints:
-    - position: {x: 0, y: 0, z: 0}
+    - position: {x: 1, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -104,7 +105,8 @@ MonoBehaviour:
       bevelSize: 0
       spriteIndex: 0
       corner: 1
-    - position: {x: 2, y: 0, z: 0}
+      m_CornerMode: 1
+    - position: {x: -1, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -113,7 +115,8 @@ MonoBehaviour:
       bevelSize: 0
       spriteIndex: 0
       corner: 1
-  m_SpriteShape: {fileID: 11400000, guid: 9660f887c6a58c84485ad68e77242dd8, type: 2}
+      m_CornerMode: 1
+  m_SpriteShape: {fileID: 11400000, guid: 51a1927783e707b4d884ed7c5a694708, type: 2}
   m_FillPixelPerUnit: 100
   m_StretchTiling: 1
   m_SplineDetail: 16
@@ -128,3 +131,4 @@ MonoBehaviour:
   m_OptimizeGeometry: 1
   m_EnableTangents: 0
   m_GeometryCached: 0
+  m_UTess2D: 0
