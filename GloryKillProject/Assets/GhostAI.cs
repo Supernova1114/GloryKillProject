@@ -5,6 +5,14 @@ using UnityEngine.EventSystems;
 
 public class GhostAI : MonoBehaviour
 {
+    public Rigidbody2D body;
+
+    public GameObject follow;
+
+    public float targetSpeed;
+    public float maxSpeed;
+    public float smoothTime;//0 to 1
+    private Vector2 currentVelocity = Vector2.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -14,8 +22,9 @@ public class GhostAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        
+        Vector2 targetVelocity = (follow.transform.position - transform.position).normalized * targetSpeed;
+        body.velocity = Vector2.SmoothDamp(body.velocity, targetVelocity, ref currentVelocity, smoothTime, maxSpeed, Time.fixedDeltaTime);
+        print(body.velocity);
     }
 
     public void handleDie()
