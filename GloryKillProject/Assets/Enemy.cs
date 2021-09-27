@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public bool staggered = false;
 
+    public string enemyName;
+
 
     [SerializeField]
     private int health;
@@ -64,6 +66,11 @@ public class Enemy : MonoBehaviour
     public bool isStaggered()
     {
         return staggered;
+    }
+
+    public string GetName()
+    {
+        return enemyName;
     }
 
 

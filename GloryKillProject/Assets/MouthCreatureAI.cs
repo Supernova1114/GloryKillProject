@@ -24,4 +24,16 @@ public class MouthCreatureAI : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Acos(targetPosition.x > 0 ? -1 : 1), 0);
     }
+
+    public void handleDie()
+    {
+        print(gameObject.name + " died");
+        //GameObject.Destroy(gameObject, 0);
+    }
+
+    public void handleStagger()
+    {
+        print(gameObject.name + " staggered");
+
+    }
 }

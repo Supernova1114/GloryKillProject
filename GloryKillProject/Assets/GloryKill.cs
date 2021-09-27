@@ -72,7 +72,7 @@ public class GloryKill : MonoBehaviour
 
                     isGloryKilling = true;
                     
-                    StartCoroutine(PlayGlory());
+                    StartCoroutine(PlayGlory(enemy.GetName()));
 
                 }
             }
@@ -80,14 +80,16 @@ public class GloryKill : MonoBehaviour
     }
 
 
-    private IEnumerator PlayGlory()
+    private IEnumerator PlayGlory(string name)
     {
+        yield return new WaitForSeconds(0);
+
         body.bodyType = RigidbodyType2D.Static;
         armObj.SetActive(false);
 
-        float dir = (hit.collider.transform.position - transform.position).normalized.x;
+        //float dir = (hit.collider.transform.position - transform.position).normalized.x;
 
-        //Walk animation yes
+        /*//Walk animation yes
         animator.SetFloat("HorizontalRaw", 1);
 
 
@@ -113,16 +115,23 @@ public class GloryKill : MonoBehaviour
             iterations++;
 
             yield return new WaitForSeconds(0.01f);
-        }
+        }*/
 
         //Walk animation no
         animator.SetFloat("HorizontalRaw", 0);
 
         Destroy(hit.collider.gameObject, 0);
 
-        animator.SetBool("Ghost", true);
-        yield return new WaitForSeconds(0.1f);
-        animator.SetBool("Ghost", false);
+        if (name.CompareTo("Ghost") == 0)
+        {
+            animator.SetInteger("GhostGloryKill", 1);
+        }
+
+        if (name.CompareTo("MouthCreature") == 0)
+        {
+            animator.SetInteger("MouthCreatureGloryKill", 1);
+        }
+
 
     }
 
@@ -131,8 +140,12 @@ public class GloryKill : MonoBehaviour
         return isGloryKilling;
     }
     
-    void EndGloryKill()
+    public void EndGloryKill()
     {
+        animator.SetInteger("GhostGloryKill", 0);
+        animator.SetInteger("MouthCreatureGloryKill", 0);
+
+
         isGloryKilling = false;
 
         body.bodyType = RigidbodyType2D.Dynamic;

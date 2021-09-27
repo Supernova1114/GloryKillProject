@@ -30,7 +30,7 @@ public class GhostAI : MonoBehaviour
     public void handleDie()
     {
         print(gameObject.name + " died");
-        GameObject.Destroy(gameObject, 0);
+        //GameObject.Destroy(gameObject, 0);
     }
 
     public void handleStagger()
