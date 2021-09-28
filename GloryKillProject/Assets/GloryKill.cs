@@ -16,6 +16,12 @@ public class GloryKill : MonoBehaviour
     public Rigidbody2D body;
 
     public GameObject armObj;
+    ////////////////////////////////////////////////
+
+    [SerializeField]
+    private GameObject[] GibObjList;
+    [SerializeField]
+    private Vector2[] GibObjectPositions;
 
     // Update is called once per frame
     void Update()
@@ -150,6 +156,15 @@ public class GloryKill : MonoBehaviour
 
         body.bodyType = RigidbodyType2D.Dynamic;
         armObj.SetActive(true);
+    }
+
+    public void SpawnGibs(string n)
+    {
+        //1
+        if (n.CompareTo("MouthCreature") == 0)
+        {
+            Instantiate((Object)GibObjList.GetValue(1), transform.position, transform.rotation);
+        }
     }
 
 }

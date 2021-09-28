@@ -77,31 +77,8 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    pptrCurveMapping:
-    - {fileID: -855298285791758126, guid: 2add7afdb851cbb489a2a403c20dfce5, type: 3}
-    - {fileID: 6937817954938267909, guid: 45e13c5d1501cfa49be6626ebe04c640, type: 3}
-    - {fileID: -6470460504253458178, guid: 60781252c27c61b4c966d5bdb2aaa8a3, type: 3}
-    - {fileID: -4178046375966092550, guid: 4b1b6bd282ac51441800f55ac7ab8a93, type: 3}
-    - {fileID: 4130640169021434097, guid: 20eaabb2e53aa6340bc453417e5d13d8, type: 3}
-    - {fileID: 3465286685962602723, guid: 8d56dd43b37e9ca4d978bc45c660e528, type: 3}
-    - {fileID: 7028616704906629411, guid: 5f55427681309a940bdc16151394c4b8, type: 3}
-    - {fileID: 8288426215254106694, guid: 645bfd3e3e910504099a1589cee9e6a8, type: 3}
-    - {fileID: 4113829005332862926, guid: d01c7b20f700a874f8bd78850f841ddb, type: 3}
-    - {fileID: -5099292496197868168, guid: 53d1766c68fa3f248a983528dbf5d778, type: 3}
-    - {fileID: -2966200626249415253, guid: 938daddb5a82439408103f05cf08f071, type: 3}
-    - {fileID: -1540426309290004842, guid: 6e800544f9f485442a01fdceb5327ed2, type: 3}
-    - {fileID: 8389134475083476877, guid: 7d8a0476c477ce0438694b4d3258ebe6, type: 3}
-    - {fileID: -6270953770400647376, guid: 7f9f8d0d344298f4cb252fe1ab65c1dd, type: 3}
-    - {fileID: 4349915267927364619, guid: 223e32f2f2eb59949a4584f7a1206b08, type: 3}
-    - {fileID: 7680820834086852892, guid: 720916343c1c88747a950cde25af5ae0, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -127,6 +104,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.2
+    functionName: SpawnGibs
+    data: MouthCreature
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.26666668
     functionName: EndGloryKill
     data: 
