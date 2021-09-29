@@ -17,11 +17,13 @@ public class GloryKill : MonoBehaviour
 
     public GameObject armObj;
     ////////////////////////////////////////////////
-
+    [SerializeField]
+    private GameObject GibObjSpawnPosition;
     [SerializeField]
     private GameObject[] GibObjList;
     [SerializeField]
-    private Vector2[] GibObjectPositions;
+    private Vector2[] GibObjectOffsetList;
+    
 
     // Update is called once per frame
     void Update()
@@ -135,6 +137,7 @@ public class GloryKill : MonoBehaviour
 
         if (name.CompareTo("MouthCreature") == 0)
         {
+            GibObjSpawnPosition.transform.localPosition = (Vector2)GibObjectOffsetList.GetValue(1);
             animator.SetInteger("MouthCreatureGloryKill", 1);
         }
 
@@ -163,7 +166,7 @@ public class GloryKill : MonoBehaviour
         //1
         if (n.CompareTo("MouthCreature") == 0)
         {
-            Instantiate((Object)GibObjList.GetValue(1), transform.position, transform.rotation);
+            Instantiate( (Object)GibObjList.GetValue(1), GibObjSpawnPosition.transform.position, transform.rotation );
         }
     }
 
