@@ -6,6 +6,10 @@ public class GloryKill : MonoBehaviour
 {
 
     private RaycastHit2D hit;
+
+    [SerializeField]
+    private SizeController cameraSizeController;
+
     [SerializeField]
     private Animator animator;
 
@@ -79,6 +83,7 @@ public class GloryKill : MonoBehaviour
                 {
 
                     isGloryKilling = true;
+                    cameraSizeController.setGloryKillCam(true);
                     
                     StartCoroutine(PlayGlory(enemy.GetName()));
 
@@ -156,6 +161,8 @@ public class GloryKill : MonoBehaviour
 
 
         isGloryKilling = false;
+        cameraSizeController.setGloryKillCam(false);
+
 
         body.bodyType = RigidbodyType2D.Dynamic;
         armObj.SetActive(true);
