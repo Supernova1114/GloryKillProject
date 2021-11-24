@@ -19,33 +19,30 @@ public class PlayerDamageHandler : MonoBehaviour
     //private Vector2 hurtForce;
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.CompareTag("Enemy"))
+        
+        if (collider.CompareTag("Enemy"))
         {
 
             if (Time.time > nextHurtTime)
             {
                 nextHurtTime = Time.time + hurtTime;
-                print("Enemy Hurt Player");
+                //print("Enemy Hurt Player");
 
                 //do hurt
 
 
-                StartCoroutine(HurtPlayer(collision));
+                HurtPlayer(collider);
             }
         }
     }
 
 
-    private IEnumerator HurtPlayer(Collider2D collision)
+    private void HurtPlayer(Collider2D collider)
     {
-        characterController2D.setMovementSmoothing(0.2f);
-        Vector2 tempVect = (transform.position - collision.transform.position).normalized;
+        Vector2 tempVect = (transform.position - collider.transform.position).normalized;
         body.AddForce(tempVect * hurtForce);
-
-        yield return new WaitForSeconds(0.1f);
-        characterController2D.setMovementSmoothing();
     }
 
 }

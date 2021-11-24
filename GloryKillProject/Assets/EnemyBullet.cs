@@ -11,7 +11,7 @@ public class EnemyBullet : MonoBehaviour
     void Start()
     {
         body.velocity = transform.right * speed;
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 5);
 
     }
 

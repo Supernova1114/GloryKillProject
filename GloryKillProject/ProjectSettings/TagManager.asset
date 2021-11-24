@@ -14,14 +14,14 @@ TagManager:
   - 
   - Water
   - UI
-  - Bullets
-  - 
+  - Bullet
+  - Enemies
   - Environment
   - Player
   - IgnorePlayer
   - Ghost
   - IgnoreEverythingExceptPlayer
-  - 
+  - IgnoreEnemies
   - 
   - 
   - 
