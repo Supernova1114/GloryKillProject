@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+	[SerializeField] private float m_DashForce = 400f;
 	[SerializeField] private float m_WallJumpForceX = 400f;
 	[SerializeField] private float m_WallJumpForceY = 400f;
 	[SerializeField] private float maxWallJVelocY = 400f;
@@ -116,7 +117,7 @@ public class CharacterController2D : MonoBehaviour
 
 	Vector3 targetVelocity;
 
-	public void Move(float move, bool crouch, bool jump)
+	public void Move(float move, bool crouch, bool jump, bool dash)
 	{
 
 		animator.SetBool("inAir", !m_Grounded);
@@ -167,7 +168,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 
 			// Move the character by finding the target velocity
-			if (currentMovementSmoothing < 1)
+			//if (currentMovementSmoothing < 1)
 			targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, currentMovementSmoothing);
@@ -211,7 +212,14 @@ public class CharacterController2D : MonoBehaviour
 
 				}*/
 			}
-		}
+		}//if
+
+
+		//If the player should dash
+		if (dash)
+        {
+			m_Rigidbody2D.AddForce(new Vector2((transform.right * m_DashForce).x, 0));
+        }
 	}
 
 	public void setMovementSmoothing(float smoothTime)

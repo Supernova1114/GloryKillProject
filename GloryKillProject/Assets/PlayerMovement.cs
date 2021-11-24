@@ -15,8 +15,12 @@ public class PlayerMovement : MonoBehaviour
 
     float horizontalMove = 0f;
     bool jump = false;
+    bool dash = false;
 
     private static bool isGloryKilling = false;
+
+    public float dashCooldownInterval;
+    private float currentDashCooldown = 0;
 
 
 
@@ -38,15 +42,29 @@ public class PlayerMovement : MonoBehaviour
         {
             jump = true;
         }
+
+        if (Input.GetButtonDown("Dash"))
+        {
+            if (currentDashCooldown <= 0)
+            {
+                dash = true;
+                currentDashCooldown = dashCooldownInterval;
+
+            }
+
+        }
+
+        currentDashCooldown -= Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
         //Move Character
         if (!isGloryKilling)
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, dash);
 
         jump = false;
+        dash = false;
     }
 
 

@@ -665,7 +665,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1540426309290004842, guid: 6e800544f9f485442a01fdceb5327ed2,
+  m_Sprite: {fileID: -7547798231855062517, guid: 6a333afb0917a8e468511fc4ffb8bee3,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -724,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b0fc358c560be941b44f9188608d4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraSizeController: {fileID: 0}
   animator: {fileID: 2388771981397076150}
   body: {fileID: 2388771981397076148}
   armObj: {fileID: 2388771980223050499}
@@ -763,11 +764,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_JumpForce: 600
+  m_DashForce: 1000
   m_WallJumpForceX: 600
   m_WallJumpForceY: 600
   maxWallJVelocY: 1
   m_CrouchSpeed: 0.4
-  m_MovementSmoothing: 0.05
+  m_MovementSmoothing: 0.2
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
@@ -825,6 +827,7 @@ MonoBehaviour:
   controller: {fileID: 2388771981397076149}
   animator: {fileID: 2388771981397076150}
   runSpeed: 40
+  dashCooldownInterval: 0.8
 --- !u!1 &2388771981474821076
 GameObject:
   m_ObjectHideFlags: 0

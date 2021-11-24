@@ -28,7 +28,7 @@ public class RollerBugAI : MonoBehaviour
 
     public bool angry = false;
 
-    private bool isWaitingForCoroutine = false;
+    
 
     public float shotCooldownTime;
     private float nextShotTime = 0;
@@ -139,7 +139,7 @@ public class RollerBugAI : MonoBehaviour
 
         body.constraints = RigidbodyConstraints2D.None;
 
-        isWaitingForCoroutine = false;
+        
         
     }
 
@@ -180,11 +180,11 @@ public class RollerBugAI : MonoBehaviour
 
             //angry = true;
         }
-        isWaitingForCoroutine = false;
+        
     }
 
     
-    //testRun
+    //testRun the AI
     private IEnumerator testCase()
     {
         angry = false;
@@ -195,36 +195,25 @@ public class RollerBugAI : MonoBehaviour
         {
 
             
-            isWaitingForCoroutine = true;
-            StartCoroutine(TransformBug(false));
-            while (isWaitingForCoroutine)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
+            
+
+            yield return StartCoroutine(TransformBug(false));
 
             angry = true;
 
             yield return new WaitForSeconds(12);
 
             angry = false;
-
-            isWaitingForCoroutine = true;
-            StartCoroutine(TransformBug(true));
-            while (isWaitingForCoroutine)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
+            
+            yield return StartCoroutine(TransformBug(true));
 
             angry = true;
 
             yield return new WaitForSeconds(15);
 
-            isWaitingForCoroutine = true;
-            StartCoroutine(ReturnToFloor());
-            while (isWaitingForCoroutine)
-            {
-                yield return new WaitForSeconds(0.1f);
-            }
+            
+            yield return StartCoroutine(ReturnToFloor());
+            
 
 
 
