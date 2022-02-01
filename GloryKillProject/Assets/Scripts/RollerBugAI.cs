@@ -68,8 +68,7 @@ public class RollerBugAI : MonoBehaviour
 
             if (!animator.GetBool("ballMode"))
             {
-                body.AddForce(new Vector2(direction.normalized.x, 0) * force);
-                body.velocity = Vector2.ClampMagnitude(body.velocity, maxVelocity);
+                
 
                 //change direction to face player
                 if (direction.normalized.x > 0)
